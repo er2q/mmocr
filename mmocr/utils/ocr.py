@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Copyright (c) OpenMMLab. All rights reserved.
 import copy
-import os
+import os, sys
 import warnings
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
@@ -18,6 +18,9 @@ try:
     import tesserocr
 except ImportError:
     tesserocr = None
+# 临时环境变量
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
 
 from mmocr.apis import init_detector
 from mmocr.apis.inference import model_inference
@@ -876,3 +879,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+'''
+python mmocr/utils/ocr.py --det DB_r18 --recog CRNN demo/demo_text_det.jpg --device 'cuda:1' --imshow
+'''

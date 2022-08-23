@@ -16,7 +16,7 @@ from mmcv.runner import get_dist_info, init_dist, set_random_seed
 from mmcv.utils import get_git_hash
 
 # 临时环境变量
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
 from mmocr import __version__
@@ -30,7 +30,7 @@ from mmocr.utils import (collect_env, get_root_logger, is_2dlist,
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector.')
     parser.add_argument('--config', help='Train config file path.',
-                        default="../myconfigs/dbnet_r18_fpnc_1200e_icdar2017_RCTW.py"
+                        default="./myconfigs/dbnet_r18_fpnc_1200e_icdar2017_RCTW.py"
                         )
     parser.add_argument('--work-dir', help='The dir to save logs and models.',
                         )

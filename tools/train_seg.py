@@ -30,7 +30,7 @@ from mmocr.utils import (collect_env, get_root_logger, is_2dlist,
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector.')
     parser.add_argument('--config', help='Train config file path.',
-                        default="../myconfigs/dbnet_r18_fpnc_1200e_icdar2017_RCTW.py"
+                        default="../myconfigs/seg_crnn_icdar2017_RCTW.py"
                         )
     parser.add_argument('--work-dir', help='The dir to save logs and models.',
                         )

@@ -1,5 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
+import os, sys
+
+# 临时环境变量
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(BASE_DIR)
 
 from mmocr.utils import recog2lmdb
 

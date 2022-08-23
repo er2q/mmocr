@@ -34,11 +34,8 @@ def collect_files(img_dir, gt_dir):
         imgs_list.extend(glob.glob(osp.join(img_dir, '*' + suffix)))
 
     files = []
-    imgs_list = list(set(imgs_list) - set(imgs_list[::5]))
-    # imgs_list = imgs_list[::5]
     for img_file in imgs_list:
-        # gt_file = gt_dir + '/gt_' + osp.splitext(
-        gt_file = gt_dir + '/' + osp.splitext(      # 2017rctw
+        gt_file = gt_dir + '/' + osp.splitext(
             osp.basename(img_file))[0] + '.txt'
         files.append((img_file, gt_file))
     assert len(files), f'No images found in {img_dir}'
@@ -105,18 +102,14 @@ def load_img_info(files, dataset):
         line = line.strip()
         strs = line.split(',')
         category_id = 1
-        try:
-            xy = [int(x) for x in strs[0:8]]
-        except:
-            print(gt_file, line)
-            break
+        xy = [int(x) for x in strs[0:8]]
         coordinates = np.array(xy).reshape(-1, 2)
         polygon = Polygon(coordinates)
         iscrowd = 0
         # set iscrowd to 1 to ignore 1.
         if (dataset == 'icdar2015'
-                and strs[8] == '###') or (dataset == 'icdar2017'
-                                          and strs[9] == '###'):
+            and strs[-1] == '###') or (dataset == 'icdar2017'
+                                      and strs[-1] == '###'):
             iscrowd = 1
             print('ignore text')
 
@@ -147,16 +140,18 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description='Convert Icdar2015 or Icdar2017 annotations to COCO format'
     )
-    parser.add_argument('--icdar_path', help='icdar root path',
-                        default='/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW')
-    parser.add_argument('-o', '--out-dir', help='output path',
-                        default='/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW')
+    parser.add_argument('--icdar_path',
+                        default='/disk_sda/wgh/dataset/ocr/OCR_dataset_test',
+                        help='icdar root path')
+    parser.add_argument('-o', '--out-dir',
+                        default='/disk_sda/wgh/dataset/ocr/OCR_dataset_test',
+                        help='output path')
     parser.add_argument(
         '-d', '--dataset', default='icdar2017', help='icdar2017 or icdar2015')
     parser.add_argument(
         '--split-list',
+        default=['train', 'val'],
         nargs='+',
-        default=['train'],
         help='a list of splits. e.g., "--split-list training test"')
 
     parser.add_argument(
@@ -171,20 +166,19 @@ def main():
     out_dir = args.out_dir if args.out_dir else icdar_path
     mmcv.mkdir_or_exist(out_dir)
 
-    img_dir = osp.join(icdar_path, 'train_images')
-    gt_dir = osp.join(icdar_path, 'train_gts')
+    img_dir = osp.join(icdar_path, 'imgs')
+    gt_dir = osp.join(icdar_path, 'annotations')
 
     set_name = {}
     for split in args.split_list:
         set_name.update({split: 'instances_' + split + '.json'})
-        # assert osp.exists(osp.join(img_dir, split))
+        assert osp.exists(osp.join(img_dir, split))
 
     for split, json_name in set_name.items():
         print(f'Converting {split} into {json_name}')
         with mmcv.Timer(print_tmpl='It takes {}s to convert icdar annotation'):
             files = collect_files(
-                # osp.join(img_dir, split), osp.join(gt_dir, split))
-                img_dir, gt_dir)#[3698:]
+                osp.join(img_dir, split), osp.join(gt_dir, split))
             image_infos = collect_annotations(
                 files, args.dataset, nproc=args.nproc)
             convert_annotations(image_infos, osp.join(out_dir, json_name))
