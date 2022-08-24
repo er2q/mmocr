@@ -143,6 +143,10 @@ def generate_ann(img_dir, image_infos, dst_image_root, json_path, keys_path, for
         for keys_line in list_from_file(keys_path):
             contents += keys_line
 
+    split_name = osp.basename(dst_image_root)
+    if split_name not in ['train', 'val']:
+        split_name = ''
+
     for image_info in image_infos:
         index = 1
         src_img_path = osp.join(img_dir, image_info['file_name'])
@@ -164,20 +168,20 @@ def generate_ann(img_dir, image_infos, dst_image_root, json_path, keys_path, for
 
             contents += word
             if format == 'txt':
-                lines.append(f'{osp.basename(dst_image_root)}/{dst_img_name} '
-                             f'{word}')
+                lines.append(osp.join(split_name, dst_img_name) +
+                             f' {word}')
             elif format == 'jsonl':
                 lines.append(
                     json.dumps({
                         'filename':
-                            f'{osp.basename(dst_image_root)}/{dst_img_name}',
+                            osp.join(split_name, dst_img_name),
                         'text': word
                     }))
             else:
                 raise NotImplementedError
 
     list_to_file(json_path, lines)
-    list_to_file(keys_path, ''.join(set(contents)))
+    list_to_file(keys_path, [''.join(set(contents))])
 
 
 def data_transfor(img_dir, gt_dir, crop_path, json_path, keys_path):

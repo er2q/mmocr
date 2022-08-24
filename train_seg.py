@@ -20,7 +20,7 @@ sys.path.append(osp.dirname(BASE_DIR))
 
 from utils.general import get_logger
 # from utils.qt_utils import CatchedException
-from utils.ocr_data_transformation_detect import data_transfor
+from utils.ocr_data_transformation_seg import data_transfor
 
 from mmocr import __version__
 from mmocr.apis import train_detector
