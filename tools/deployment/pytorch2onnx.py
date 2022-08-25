@@ -2,6 +2,7 @@
 import warnings
 from argparse import ArgumentParser
 from functools import partial
+import os, sys
 
 import cv2
 import numpy as np
@@ -11,6 +12,9 @@ from mmcv.parallel import collate
 from mmdet.datasets import replace_ImageToTensor
 from mmdet.datasets.pipelines import Compose
 from torch import nn
+# 临时环境变量
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
 
 from mmocr.apis import init_detector
 from mmocr.core.deployment import ONNXRuntimeDetector, ONNXRuntimeRecognizer
@@ -366,3 +370,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+'''
+python tools/deployment/pytorch2onnx.py \
+/disk_sda/wgh/workplace/work_dirs/mmocr/dbnet_r18_fpnc_1200e_icdar2017_RCTW/dbnet_r18_fpnc_1200e_icdar2017_RCTW_0.py \
+/disk_sda/wgh/workplace/work_dirs/mmocr/dbnet_r18_fpnc_1200e_icdar2017_RCTW/epoch_85.pth det \
+/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/imgs/val/image_44.jpg \
+--output-file /disk_sda/wgh/workplace/work_dirs/mmocr/dbnet_r18_fpnc_1200e_icdar2017_RCTW/epoch_85.onnx
+'''
