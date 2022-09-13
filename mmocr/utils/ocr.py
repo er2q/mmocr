@@ -808,10 +808,11 @@ class MMOCR:
                     result.extend(inference(model, chunk, batch_mode=True))
         else:
             for arr in arrays:
-                result.append(inference(model, arr, batch_mode=False))
+                # result.append(inference(model, arr, batch_mode=False))
+                result.append(self.slide_inference(model, arr))
         return result
 
-    def slide_inference(self, model, arr, batch_mode=False):
+    def slide_inference(self, model, arr):
         """Inference by sliding-window with overlap.
 
         If h_crop > h_img or w_crop > w_img, the small patch will be used to
