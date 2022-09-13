@@ -56,13 +56,13 @@ def parse_args():
         type=str,
         default='',
         help='Path to the custom config file of the selected det model. It '
-        'overrides the settings in det')
+             'overrides the settings in det')
     parser.add_argument(
         '--det-ckpt',
         type=str,
         default='',
         help='Path to the custom checkpoint file of the selected det model. '
-        'It overrides the settings in det')
+             'It overrides the settings in det')
     parser.add_argument(
         '--recog',
         type=str,
@@ -73,13 +73,13 @@ def parse_args():
         type=str,
         default='',
         help='Path to the custom config file of the selected recog model. It'
-        'overrides the settings in recog')
+             'overrides the settings in recog')
     parser.add_argument(
         '--recog-ckpt',
         type=str,
         default='',
         help='Path to the custom checkpoint file of the selected recog model. '
-        'It overrides the settings in recog')
+             'It overrides the settings in recog')
     parser.add_argument(
         '--kie',
         type=str,
@@ -90,19 +90,19 @@ def parse_args():
         type=str,
         default='',
         help='Path to the custom config file of the selected kie model. It'
-        'overrides the settings in kie')
+             'overrides the settings in kie')
     parser.add_argument(
         '--kie-ckpt',
         type=str,
         default='',
         help='Path to the custom checkpoint file of the selected kie model. '
-        'It overrides the settings in kie')
+             'It overrides the settings in kie')
     parser.add_argument(
         '--config-dir',
         type=str,
         default=os.path.join(str(Path.cwd()), 'configs/'),
         help='Path to the config directory where all the config files '
-        'are located. Defaults to "configs/"')
+             'are located. Defaults to "configs/"')
     parser.add_argument(
         '--batch-mode',
         action='store_true',
@@ -192,95 +192,95 @@ class MMOCR:
         textdet_models = {
             'DB_r18': {
                 'config':
-                'dbnet/dbnet_r18_fpnc_1200e_icdar2015.py',
+                    'dbnet/dbnet_r18_fpnc_1200e_icdar2015.py',
                 'ckpt':
-                'dbnet/'
-                'dbnet_r18_fpnc_sbn_1200e_icdar2015_20210329-ba3ab597.pth'
+                    'dbnet/'
+                    'dbnet_r18_fpnc_sbn_1200e_icdar2015_20210329-ba3ab597.pth'
             },
             'DB_r50': {
                 'config':
-                'dbnet/dbnet_r50dcnv2_fpnc_1200e_icdar2015.py',
+                    'dbnet/dbnet_r50dcnv2_fpnc_1200e_icdar2015.py',
                 'ckpt':
-                'dbnet/'
-                'dbnet_r50dcnv2_fpnc_sbn_1200e_icdar2015_20211025-9fe3b590.pth'
+                    'dbnet/'
+                    'dbnet_r50dcnv2_fpnc_sbn_1200e_icdar2015_20211025-9fe3b590.pth'
             },
             'DBPP_r50': {
                 'config':
-                'dbnetpp/dbnetpp_r50dcnv2_fpnc_1200e_icdar2015.py',
+                    'dbnetpp/dbnetpp_r50dcnv2_fpnc_1200e_icdar2015.py',
                 'ckpt':
-                'dbnet/'
-                'dbnetpp_r50dcnv2_fpnc_1200e_icdar2015-20220502-d7a76fff.pth'
+                    'dbnet/'
+                    'dbnetpp_r50dcnv2_fpnc_1200e_icdar2015-20220502-d7a76fff.pth'
             },
             'DRRG': {
                 'config':
-                'drrg/drrg_r50_fpn_unet_1200e_ctw1500.py',
+                    'drrg/drrg_r50_fpn_unet_1200e_ctw1500.py',
                 'ckpt':
-                'drrg/drrg_r50_fpn_unet_1200e_ctw1500_20211022-fb30b001.pth'
+                    'drrg/drrg_r50_fpn_unet_1200e_ctw1500_20211022-fb30b001.pth'
             },
             'FCE_IC15': {
                 'config':
-                'fcenet/fcenet_r50_fpn_1500e_icdar2015.py',
+                    'fcenet/fcenet_r50_fpn_1500e_icdar2015.py',
                 'ckpt':
-                'fcenet/fcenet_r50_fpn_1500e_icdar2015_20211022-daefb6ed.pth'
+                    'fcenet/fcenet_r50_fpn_1500e_icdar2015_20211022-daefb6ed.pth'
             },
             'FCE_CTW_DCNv2': {
                 'config':
-                'fcenet/fcenet_r50dcnv2_fpn_1500e_ctw1500.py',
+                    'fcenet/fcenet_r50dcnv2_fpn_1500e_ctw1500.py',
                 'ckpt':
-                'fcenet/' +
-                'fcenet_r50dcnv2_fpn_1500e_ctw1500_20211022-e326d7ec.pth'
+                    'fcenet/' +
+                    'fcenet_r50dcnv2_fpn_1500e_ctw1500_20211022-e326d7ec.pth'
             },
             'MaskRCNN_CTW': {
                 'config':
-                'maskrcnn/mask_rcnn_r50_fpn_160e_ctw1500.py',
+                    'maskrcnn/mask_rcnn_r50_fpn_160e_ctw1500.py',
                 'ckpt':
-                'maskrcnn/'
-                'mask_rcnn_r50_fpn_160e_ctw1500_20210219-96497a76.pth'
+                    'maskrcnn/'
+                    'mask_rcnn_r50_fpn_160e_ctw1500_20210219-96497a76.pth'
             },
             'MaskRCNN_IC15': {
                 'config':
-                'maskrcnn/mask_rcnn_r50_fpn_160e_icdar2015.py',
+                    'maskrcnn/mask_rcnn_r50_fpn_160e_icdar2015.py',
                 'ckpt':
-                'maskrcnn/'
-                'mask_rcnn_r50_fpn_160e_icdar2015_20210219-8eb340a3.pth'
+                    'maskrcnn/'
+                    'mask_rcnn_r50_fpn_160e_icdar2015_20210219-8eb340a3.pth'
             },
             'MaskRCNN_IC17': {
                 'config':
-                'maskrcnn/mask_rcnn_r50_fpn_160e_icdar2017.py',
+                    'maskrcnn/mask_rcnn_r50_fpn_160e_icdar2017.py',
                 'ckpt':
-                'maskrcnn/'
-                'mask_rcnn_r50_fpn_160e_icdar2017_20210218-c6ec3ebb.pth'
+                    'maskrcnn/'
+                    'mask_rcnn_r50_fpn_160e_icdar2017_20210218-c6ec3ebb.pth'
             },
             'PANet_CTW': {
                 'config':
-                'panet/panet_r18_fpem_ffm_600e_ctw1500.py',
+                    'panet/panet_r18_fpem_ffm_600e_ctw1500.py',
                 'ckpt':
-                'panet/'
-                'panet_r18_fpem_ffm_sbn_600e_ctw1500_20210219-3b3a9aa3.pth'
+                    'panet/'
+                    'panet_r18_fpem_ffm_sbn_600e_ctw1500_20210219-3b3a9aa3.pth'
             },
             'PANet_IC15': {
                 'config':
-                'panet/panet_r18_fpem_ffm_600e_icdar2015.py',
+                    'panet/panet_r18_fpem_ffm_600e_icdar2015.py',
                 'ckpt':
-                'panet/'
-                'panet_r18_fpem_ffm_sbn_600e_icdar2015_20210219-42dbe46a.pth'
+                    'panet/'
+                    'panet_r18_fpem_ffm_sbn_600e_icdar2015_20210219-42dbe46a.pth'
             },
             'PS_CTW': {
                 'config': 'psenet/psenet_r50_fpnf_600e_ctw1500.py',
                 'ckpt':
-                'psenet/psenet_r50_fpnf_600e_ctw1500_20210401-216fed50.pth'
+                    'psenet/psenet_r50_fpnf_600e_ctw1500_20210401-216fed50.pth'
             },
             'PS_IC15': {
                 'config':
-                'psenet/psenet_r50_fpnf_600e_icdar2015.py',
+                    'psenet/psenet_r50_fpnf_600e_icdar2015.py',
                 'ckpt':
-                'psenet/psenet_r50_fpnf_600e_icdar2015_pretrain-eefd8fe6.pth'
+                    'psenet/psenet_r50_fpnf_600e_icdar2015_pretrain-eefd8fe6.pth'
             },
             'TextSnake': {
                 'config':
-                'textsnake/textsnake_r50_fpn_unet_1200e_ctw1500.py',
+                    'textsnake/textsnake_r50_fpn_unet_1200e_ctw1500.py',
                 'ckpt':
-                'textsnake/textsnake_r50_fpn_unet_1200e_ctw1500-27f65b64.pth'
+                    'textsnake/textsnake_r50_fpn_unet_1200e_ctw1500-27f65b64.pth'
             },
             'Tesseract': {}
         }
@@ -296,19 +296,19 @@ class MMOCR:
             },
             'SAR_CN': {
                 'config':
-                'sar/sar_r31_parallel_decoder_chinese.py',
+                    'sar/sar_r31_parallel_decoder_chinese.py',
                 'ckpt':
-                'sar/sar_r31_parallel_decoder_chineseocr_20210507-b4be8214.pth'
+                    'sar/sar_r31_parallel_decoder_chineseocr_20210507-b4be8214.pth'
             },
             'NRTR_1/16-1/8': {
                 'config': 'nrtr/nrtr_r31_1by16_1by8_academic.py',
                 'ckpt':
-                'nrtr/nrtr_r31_1by16_1by8_academic_20211124-f60cebf4.pth'
+                    'nrtr/nrtr_r31_1by16_1by8_academic_20211124-f60cebf4.pth'
             },
             'NRTR_1/8-1/4': {
                 'config': 'nrtr/nrtr_r31_1by8_1by4_academic.py',
                 'ckpt':
-                'nrtr/nrtr_r31_1by8_1by4_academic_20211123-e1fdb322.pth'
+                    'nrtr/nrtr_r31_1by8_1by4_academic_20211123-e1fdb322.pth'
             },
             'RobustScanner': {
                 'config': 'robust_scanner/robustscanner_r31_academic.py',
@@ -349,7 +349,7 @@ class MMOCR:
             'SDMGR': {
                 'config': 'sdmgr/sdmgr_unet16_60e_wildreceipt.py',
                 'ckpt':
-                'sdmgr/sdmgr_unet16_60e_wildreceipt_20220706-57c220a6.pth'
+                    'sdmgr/sdmgr_unet16_60e_wildreceipt_20220706-57c220a6.pth'
             }
         }
 
@@ -372,11 +372,11 @@ class MMOCR:
             if self.kie not in kie_models:
                 raise ValueError(
                     self.kie, 'is not a supported key information extraction'
-                    ' algorithm')
+                              ' algorithm')
             elif not (self.td and self.tr):
                 raise NotImplementedError(
                     self.kie, 'has to run together'
-                    ' with text detection and recognition algorithms.')
+                              ' with text detection and recognition algorithms.')
 
         self.detect_model = None
         if self.td and self.td == 'Tesseract':
@@ -392,7 +392,7 @@ class MMOCR:
                                           textdet_models[self.td]['config'])
             if not det_ckpt:
                 det_ckpt = 'https://download.openmmlab.com/mmocr/textdet/' + \
-                    textdet_models[self.td]['ckpt']
+                           textdet_models[self.td]['ckpt']
 
             self.detect_model = init_detector(
                 det_config, det_ckpt, device=self.device)
@@ -413,7 +413,7 @@ class MMOCR:
                     textrecog_models[self.tr]['config'])
             if not recog_ckpt:
                 recog_ckpt = 'https://download.openmmlab.com/mmocr/' + \
-                    'textrecog/' + textrecog_models[self.tr]['ckpt']
+                             'textrecog/' + textrecog_models[self.tr]['ckpt']
 
             self.recog_model = init_detector(
                 recog_config, recog_ckpt, device=self.device)
@@ -427,7 +427,7 @@ class MMOCR:
                                           kie_models[self.kie]['config'])
             if not kie_ckpt:
                 kie_ckpt = 'https://download.openmmlab.com/mmocr/' + \
-                    'kie/' + kie_models[self.kie]['ckpt']
+                           'kie/' + kie_models[self.kie]['ckpt']
 
             kie_cfg = Config.fromfile(kie_config)
             self.kie_model = build_detector(
@@ -811,6 +811,33 @@ class MMOCR:
                 result.append(inference(model, arr, batch_mode=False))
         return result
 
+    def slide_inference(self, model, arr, batch_mode=False):
+        """Inference by sliding-window with overlap.
+
+        If h_crop > h_img or w_crop > w_img, the small patch will be used to
+        decode without padding.
+        """
+
+        def inference(m, a, **kwargs):
+            if model == 'Tesseract_det':
+                return self.tesseract_det_inference(a)
+            elif model == 'Tesseract_recog':
+                return self.tesseract_recog_inference(a)
+            else:
+                return model_inference(m, a, **kwargs)
+
+        boundary_result = {'boundary_result': []}
+        h_img, w_img, _ = arr.shape
+        window_size, overlapping_pixels = 736, 30
+        for (x, y), (window_size_x, window_size_y) in image_slide_cutting(w_img, h_img, window_size,
+                                                                          overlapping_pixels=overlapping_pixels):
+            crop_img = arr[x:x + window_size_x, y:y + window_size_y, :]
+            result = inference(model, crop_img, batch_mode=False)
+            for bbox in result['boundary_result']:
+                bbox = list(np.asarray(bbox) + np.asarray([x, y, x, y, x, y, x, y, 0]))
+                boundary_result['boundary_result'].append(bbox)
+        return boundary_result
+
     # Arguments pre-processing function
     def _args_processing(self, args):
         # Check if the input is a list/tuple that
@@ -868,6 +895,44 @@ class MMOCR:
             args.export = [None] * num_res
 
         return args
+
+
+def image_slide_cutting(width, height, window_size, overlapping_pixels=0, mode=0):
+    """
+    大影像滑动窗口切割生成器，返回当前切割得图片左上角得像素坐标(x,y)和实际切割的图像的尺寸(window_size_x, window_size_y)
+    :param width: 原始大图像的宽
+    :param height: 原始大图像的高
+    :param window_size: 切割的图片尺寸大小
+    :param overlapping_pixels: 窗口滑动时，重叠的像素大小。
+    :param mode: 为0时，扫描到边界时，向前重叠保留切割尺寸不变，为其他值时，则不向前重叠，已实际剩余尺寸作为切割窗口大小
+    :return:
+    """
+    if isinstance(window_size, int):
+        window_size_x = window_size_y = window_size
+    else:
+        assert isinstance(window_size, (list, tuple))
+        window_size_x, window_size_y = window_size[:2]
+    # 存在切割尺寸大于原图尺寸的情况，特殊处理++
+    window_size_y = min(window_size_y, height)
+    window_size_x = min(window_size_x, width)
+    stride_x = window_size_x - overlapping_pixels
+    stride_y = window_size_y - overlapping_pixels
+    # 按照从左往右，从上往下，逐行扫描
+    if mode == 0:  # 最后一行或最后一列时，切割尺寸保持不变，图片切割或扫描推理时使用
+        for y in list(range(0, height - window_size_y, stride_y)) + [height - window_size_y]:
+            for x in list(range(0, width - window_size_x, stride_x)) + [width - window_size_x]:
+                yield (x, y), (window_size_x, window_size_y)
+
+    else:  # 最后一行或列时，以实际剩余尺寸为准，大影像分块转矢量时使用
+        assert overlapping_pixels == 0, 'mode值非0情况下，不需要重叠！'
+        for y in (list_y := list(range(0, height, stride_y))):
+            for x in (list_x := list(range(0, width, stride_x))):
+                real_window_size_x, real_window_size_y = window_size_x, window_size_y
+                if y == list_y[-1]:
+                    real_window_size_y = height - y
+                if x == list_x[-1]:
+                    real_window_size_x = width - x
+                yield (int(x), int(y)), (int(real_window_size_x), int(real_window_size_y))
 
 
 # Create an inference pipeline with parsed arguments

@@ -20,7 +20,7 @@ ocr = MMOCR('DB_r18', '/disk_sda/wgh/workplace/mmocr/myconfigs/dbnet_r18_fpnc_12
             '/disk_sda/wgh/workplace/work_dirs/mmocr/dbnet_r18_fpnc_1200e_icdar2017_RCTW/latest.pth',
             'CRNN', '/disk_sda/wgh/workplace/mmocr/myconfigs/seg_crnn_icdar2017_RCTW.py',
             '/disk_sda/wgh/workplace/work_dirs/mmocr/seg_crnn_academic_dataset/latest.pth')
-# ocr = MMOCR()
+
 # 推理
 src = '/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/test_images'
 dst_output = '/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/test_images_result1'
