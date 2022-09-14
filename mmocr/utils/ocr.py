@@ -2,6 +2,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import copy
 import os, sys
+import json
 import warnings
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
@@ -607,10 +608,24 @@ class MMOCR:
             else:
                 final_result = det_recog_result
             if export:
-                mmcv.dump(final_result, export, indent=4)
-            if args.print_result:
-                print(final_result, end='\n\n')
-            final_results.append(final_result)
+                # mmcv.dump(final_result, export, indent=4)
+                all_res = []
+                for res in final_result['result']:
+                    weight = res['text_score']
+                    if weight > 1.0: weight = 1.0
+                    if weight < 0.5: continue
+                    all_res.append({
+                        "pos": (np.asarray(res['box']).reshape([4, 2])).tolist(),
+                        "value": res['text'],
+                        "weight": weight
+                    })
+                res_dic = {"result": all_res}
+                json_str = json.dumps(res_dic, indent=4, ensure_ascii=False)
+                with open(export, 'w', encoding='utf-8') as json_file:
+                    json_file.write(json_str)
+                if args.print_result:
+                    print(final_result, end='\n\n')
+                final_results.append(final_result)
         return final_results
 
     # Post processing function for separate det/recog inference
@@ -831,7 +846,8 @@ class MMOCR:
         h_img, w_img, _ = arr.shape
         window_size, overlapping_pixels = 736, 0
         for (x, y), (window_size_x, window_size_y) in image_slide_cutting(w_img, h_img, window_size,
-                                                                          overlapping_pixels=overlapping_pixels, mode=1):
+                                                                          overlapping_pixels=overlapping_pixels,
+                                                                          mode=1):
             crop_img = arr[y:y + window_size_y, x:x + window_size_x, :]
             result = inference(model, crop_img, batch_mode=False)
             for bbox in result['boundary_result']:
