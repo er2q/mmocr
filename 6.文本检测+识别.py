@@ -26,7 +26,6 @@ src = '/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/test_images'
 dst_output = '/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/test_images_result1'
 dst_export = '/disk_sda/wgh/dataset/ocr/ICDAR2017_RCTW/test_images_result2'
 for img_name in os.listdir(src):
-    results = ocr.readtext(osp.join(src, img_name),
-                           output=osp.join(dst_output, img_name),
+    results = ocr.readtext(osp.join(src, img_name), output=osp.join(dst_output, img_name),
                            export=osp.join(dst_export, osp.splitext(img_name)[0] + '.json'),
-                           print_result=True)
+                           print_result=True, merge=True)

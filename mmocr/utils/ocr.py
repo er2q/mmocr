@@ -829,10 +829,10 @@ class MMOCR:
 
         boundary_result = {'boundary_result': []}
         h_img, w_img, _ = arr.shape
-        window_size, overlapping_pixels = 736, 30
+        window_size, overlapping_pixels = 736, 0
         for (x, y), (window_size_x, window_size_y) in image_slide_cutting(w_img, h_img, window_size,
-                                                                          overlapping_pixels=overlapping_pixels):
-            crop_img = arr[x:x + window_size_x, y:y + window_size_y, :]
+                                                                          overlapping_pixels=overlapping_pixels, mode=1):
+            crop_img = arr[y:y + window_size_y, x:x + window_size_x, :]
             result = inference(model, crop_img, batch_mode=False)
             for bbox in result['boundary_result']:
                 bbox = list(np.asarray(bbox) + np.asarray([x, y, x, y, x, y, x, y, 0]))
