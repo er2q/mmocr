@@ -7,7 +7,7 @@ workflow = [('train', 1), ('val', 1)]
 opencv_num_threads = 0
 mp_start_method = 'fork'
 label_convertor = dict(
-    type='CTCConvertor', dict_file=None, with_unknown=False, lower=True)
+    type='CTCConvertor', dict_type='RCTW', dict_file=None, with_unknown=False, lower=True)
 model = dict(
     type='CRNNNet',
     preprocessor=None,
@@ -124,7 +124,6 @@ data = dict(
         type='UniformConcatDataset',
         datasets=test_list,
         pipeline=test_pipeline))
-
 
 cudnn_benchmark = True
 work_dir = '/disk_sda/wgh/workplace/work_dirs/mmocr/seg_crnn_academic_dataset'

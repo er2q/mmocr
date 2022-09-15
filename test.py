@@ -44,7 +44,5 @@ if __name__ == '__main__':
         # total = sum([param.nelement() for param in model.parameters()])
         #
         # print("Number of parameter: %.2fM" % (total / 1024 / 1024))
-    a = None
-    b = None
-    if a and b:
-        print(1233)
+    import os
+    print(os.getcwd())

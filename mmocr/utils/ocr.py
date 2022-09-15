@@ -188,6 +188,7 @@ class MMOCR:
                  kie_ckpt='',
                  config_dir=os.path.join(str(Path.cwd()), 'configs/'),
                  device=None,
+                 seg_cfg_options=None,
                  **kwargs):
 
         textdet_models = {
@@ -417,7 +418,8 @@ class MMOCR:
                              'textrecog/' + textrecog_models[self.tr]['ckpt']
 
             self.recog_model = init_detector(
-                recog_config, recog_ckpt, device=self.device)
+                recog_config, recog_ckpt, device=self.device,
+                cfg_options=seg_cfg_options)
             self.recog_model = revert_sync_batchnorm(self.recog_model)
 
         self.kie_model = None
@@ -611,9 +613,10 @@ class MMOCR:
                 # mmcv.dump(final_result, export, indent=4)
                 all_res = []
                 for res in final_result['result']:
+                    print(res)
                     weight = res['text_score']
                     if weight > 1.0: weight = 1.0
-                    if weight < 0.5: continue
+                    if weight < 0.2: continue
                     all_res.append({
                         "pos": (np.asarray(res['box']).reshape([4, 2])).tolist(),
                         "value": res['text'],
@@ -905,7 +908,7 @@ class MMOCR:
         if args.export:
             export_path = Path(args.export)
             args.export = [
-                str(export_path / f'out_{x}.{args.export_format}')
+                str(export_path / f'{x}.{args.export_format}')
                 for x in args.filenames
             ]
         else:

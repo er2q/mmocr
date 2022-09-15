@@ -16,6 +16,9 @@ import json
 import logging
 from PIL import Image
 
+ROOT_DIR = os.getcwd()
+sys.path.append(ROOT_DIR)
+
 from model import OcrHandle
 from backend.tools import log
 from config import dbnet_max_size
@@ -84,7 +87,7 @@ class OCRRun:
         return 0
 
 
-def ocr_run(file_name, img_path, det=None, recog=None, dst_export=None):
+def ocr_run(file_name, img_path, det=None, recog=None, keys=None, dst_export=None):
     """
 
     :param file_name: 文件名，无用
@@ -95,13 +98,15 @@ def ocr_run(file_name, img_path, det=None, recog=None, dst_export=None):
     :return:
     """
     filepath, filename = os.path.split(img_path)
+    seg_cfg_options = {'cfg': {'model': {'label_convertor': {'dict_file': keys}}}}
 
     # 是否传入模型
     if det and recog:
         ocr = MMOCR(
-            'DB_r18', '/disk_sda/wgh/workplace/mmocr/myconfigs/dbnet_r18_fpnc_1200e_icdar2017_RCTW.py', det,
-            'CRNN', '/disk_sda/wgh/workplace/mmocr/myconfigs/seg_crnn_icdar2017_RCTW.py', recog
+            'DB_r18', os.path.join(ROOT_DIR, './myconfigs/dbnet_r18_fpnc_1200e_icdar2017_RCTW.py'), det,
+            'CRNN', os.path.join(ROOT_DIR, './myconfigs/seg_crnn_icdar2017_RCTW.py'), recog, seg_cfg_options=seg_cfg_options
         )
+        # ocr = MMOCR()
         if not dst_export:
             dst_export = filepath
         ocr.readtext(img_path, details=True, export=dst_export, print_result=True, merge=False)
@@ -117,3 +122,6 @@ if __name__ == '__main__':
     # print(sys.argv)
 
     ocr_run(*sys.argv)
+
+# python OCRAPI.py data/image_47.jpg models/dbnet_r18_fpnc_1200e_icdar2017_RCTW/epoch_85.pth models/seg_crnn_academic_dataset/epoch_50.pth
+# python OCRAPI.py data/image_47.jpg models/dbnet_r18_fpnc_1200e_icdar2017_RCTW/dbnet_r18_fpnc_sbn_1200e_icdar2015_20210329-ba3ab597.pth models/seg_crnn_academic_dataset/crnn_academic-a723a1c5.pth
